@@ -3,14 +3,14 @@ const items = [];
 const hideCheckedItems = false;
 
 const findById = function(id) {
-  store.items.find(x => x.id === id);
+  this.items.find(x => x.id === id);
   //replace store with 'this' if doesnt work
   console.log('findById works!');
 };
 
 const addItem = function(name) {
   try {
-    validateName(name);
+    item.validateName(name);
     this.items.push(name);
   }
   catch(error) {
@@ -21,7 +21,7 @@ const addItem = function(name) {
 
 const findAndUpdateName = function(id, newName) {
   try {
-    validateName(name);
+    item.validateName(name);
     findById(id).name = newName;
   }
   catch(error) {
