@@ -2,16 +2,14 @@ import item from './item.js';
 const items = [];
 const hideCheckedItems = false;
 
-const findById = function(id) {
-  this.items.find(x => x.id === id);
-  //replace store with 'this' if doesnt work
-  console.log('findById works!');
+const findById = function(idnum) {
+  return this.items.find(el => el.id === idnum); 
 };
 
 const addItem = function(name) {
   try {
     item.validateName(name);
-    this.items.push(name);
+    this.items.push(item.create(name));
   }
   catch(error) {
     console.log(`${error.message}`);
@@ -21,7 +19,7 @@ const addItem = function(name) {
 
 const findAndUpdateName = function(id, newName) {
   try {
-    item.validateName(name);
+    item.validateName(newName);
     findById(id).name = newName;
   }
   catch(error) {
@@ -30,13 +28,23 @@ const findAndUpdateName = function(id, newName) {
   console.log('Name updated!');
 };
 
+const findAndToggleChecked = function(id) {
+  const item = this.findById(id);
+  item.checked = !item.checked;
+};
+
 const findAndDelete = function(id) {
-  const deleteObj = findById(id);
+  const deleteObj = findById(id); 
   this.items.splice(deleteObj, 1);
   console.log('Deleted!');
 };
 
-
+/**
+ * Toggles the store.hideCheckedItems property
+ */
+const toggleCheckedFilter = function () {
+  this.hideCheckedItems = !this.hideCheckedItems;
+};
 
 export default {
   items,
@@ -44,5 +52,7 @@ export default {
   findById,
   addItem,
   findAndUpdateName,
-  findAndDelete
+  findAndToggleChecked,
+  findAndDelete,
+  toggleCheckedFilter
 };
